@@ -87,7 +87,11 @@ function kittenMessage(recipientId, text) {
                                 }, {
                                 "type": "postback",
                                 "title": "I like this",
-                                "payload": "User " + recipientId + " likes kitten " + imageUrl,
+                                "payload": [{
+                                  "message" : "User " + recipientId + " likes kitten " + imageUrl
+                                }, {
+                                "text" : "I like this"
+                                }],
                             }]
                         }]
                     }
