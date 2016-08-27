@@ -34,8 +34,8 @@ app.post('/webhook', function (req, res) {
                 sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
             }
         } else if (event.postback) {
-            sayThanks(event.sender.id, event.message.text);
-            console.log("Postback received: " + JSON.stringify(event.postback));
+            sayThanks(event.sender.id, JSON.parse(event.postback);
+            console.log("Postback received: " + JSON.stringify(event.postback.message));
         }
     }
     res.sendStatus(200);
@@ -108,8 +108,8 @@ function kittenMessage(recipientId, text) {
 
 };
 
-function sayThanks(recipientId, text){
-  if(text == 'I like this'){
+function sayThanks(recipientId, rtext){
+  if(rtext.text == 'I like this'){
     message = {text : "Super, Thanks for that. Someone will be in touch with you real soon to discuss with you. What else can i help you with today?"};
     sendMessage(recipientId, message);
   }
