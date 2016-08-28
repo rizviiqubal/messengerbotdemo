@@ -29,16 +29,17 @@ app.post('/webhook', function (req, res) {
         /*if (event.message && event.message.text) {
             sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         }*/
-        console.log(event);
-        if(event.message.is_echo != "true"){
+          console.log("Event:"+JSON.stringify(event));
+          console.log("Message:"+JSON.stringify(event.message));
+          console.log("Postback:"+JSON.stringify(event.postback));
           if (event.message && event.message.text) {
                   //sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-          } else if (event.postback) {
-              console.log("Postback received: " + JSON.stringify(event.postback));
+          }
+          if (event.postback) {
               mainMenu(event.sender.id, event.postback.payload);
               requestAQuote(event.sender.id, event.postback.payload);
           }
-        }  
+
     }
     res.sendStatus(200);
 });
