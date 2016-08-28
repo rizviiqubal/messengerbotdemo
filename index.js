@@ -46,7 +46,7 @@ function getUserInfo(recipientId){
     console.log("Inside Request: Response body"+body);
     console.log("Inside Request: Response"+response);
     console.log("Inside Request: recver id"+recipientId);
-    console.log("Inside Request: recver first name"+response.first_name);
+    console.log("Inside Request: recver first name"+body.first_name);
     return body;
   });
   return userInfo;
@@ -78,7 +78,7 @@ function sendMessage(recipientId, message) {
 function mainMenu(recipientId, rtext){
     if(rtext == 'SOCIALIZE_VA_STARTER'){
       var userInfo = getUserInfo(recipientId);
-      console.log(userInfo);
+      console.log("UserInfo in Main Menu"+userInfo);
 
         var welcomeText = "Hi ";
         welcomeText += "Welcome to Socialize virtual assistant.";
