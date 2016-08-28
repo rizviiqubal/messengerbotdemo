@@ -32,9 +32,9 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
                 sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         } else if (event.postback) {
+            console.log("Postback received: " + JSON.stringify(event.postback));
             mainMenu(event.sender.id, event.postback.payload);
             requestAQuote(event.sender.id, event.postback.payload);
-            console.log("Postback received: " + JSON.stringify(event.postback));
         }
     }
     res.sendStatus(200);
@@ -43,9 +43,10 @@ app.post('/webhook', function (req, res) {
 function getUserInfo(recipientId){
   var userInfo = null;
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    console.log(body);
-    console.log(recipientId);
-
+    console.log("Inside Request: Response body"+body);
+    console.log("Inside Request: Response"+response);
+    console.log("Inside Request: recver id"+recipientId);
+    console.log("Inside Request: recver first name"+response.first_name);
     return body;
   });
   return userInfo;
