@@ -78,16 +78,15 @@ function mainMenu(recipientId, rtext){
     if(rtext == 'SOCIALIZE_VA_STARTER'){
       var userInfo = getUserInfo(recipientId);
       console.log(userInfo);
-      if(typeof userInfo.first_name != "undefined"
-            && typeof userInfo.last_name != "undefined" ){
-        var welcomeText = "Hi "+userInfo.first_name+" "+userInfo.last_name;
+
+        var welcomeText = "Hi ";
         welcomeText += "Welcome to Socialize virtual assistant.";
         welcomeText += "How can i help you today?";
         message = {
                   	"text": welcomeText
                   }
         sendMessage(recipientId, message);
-      }
+
 
       message = {
           "attachment": {
