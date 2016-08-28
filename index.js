@@ -66,7 +66,7 @@ function getUserInfo(recipientId){
     //console.log(response);
     userInfo = body;
   });
-  return userInfo;
+  return JSON.parse(userInfo);
 }
 
 
