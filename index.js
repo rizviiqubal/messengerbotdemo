@@ -61,7 +61,7 @@ function sendMessage(recipientId, message) {
 
 function getUserInfo(recipientId){
   var userInfo = null;
-  request("https://graph.facebook.com/v2.6/recipientId?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
     console.log(body);
     console.log(response);
     userInfo = body;
