@@ -95,7 +95,7 @@ function mainMenu(recipientId, rtext){
               "template_type":"generic",
               "elements":[
                 {
-                  "title" : "Hi"
+                  "title" : "Hi",
                   "buttons":[
                     {
                       "type":"postback",
