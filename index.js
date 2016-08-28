@@ -30,10 +30,9 @@ app.post('/webhook', function (req, res) {
             sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         }*/
         if (event.message && event.message.text) {
-            if (!kittenMessage(event.sender.id, event.message.text)) {
                 sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-            }
         } else if (event.postback) {
+            mainMenu(event.sender.id, event.postback.payload);
             sayThanks(event.sender.id, event.postback.payload);
             console.log("Postback received: " + JSON.stringify(event.postback));
         }
@@ -60,50 +59,53 @@ function sendMessage(recipientId, message) {
     });
 };
 
-// send rich message with kitten
-function kittenMessage(recipientId, text) {
+function getUserInfo(recipientId){
+  var userInfo = null;
+  request("https://graph.facebook.com/v2.6/recipientId?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    console.log(body);
+    console.log(response);
+    userInfo = body;
+  });
+  return userInfo;
+}
 
-    text = text || "";
-    var values = text.split(' ');
-
-    if (values.length === 3 && values[0] === 'kitten') {
-        if (Number(values[1]) > 0 && Number(values[2]) > 0) {
-
-            var imageUrl = "https://placekitten.com/" + Number(values[1]) + "/" + Number(values[2]);
-
-            message = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [{
-                            "title": "Kitten",
-                            "subtitle": "Cute kitten picture",
-                            "image_url": imageUrl ,
-                            "buttons": [{
-                                "type": "web_url",
-                                "url": imageUrl,
-                                "title": "Show kitten"
-                                }, {
-                                "type": "postback",
-                                "title": "I like this",
-                                "payload": "I like this",
-                            }]
-                        }]
-                    }
+function mainMenu(recipientId, rtext){
+    if(rtext == 'SOCIALIZE_VA_STARTER'){
+      $userInfo = getUserInfo(recipientId);
+      message = {
+          "attachment": {
+              "type": "template",
+              "payload":{
+              "template_type":"generic",
+              "elements":[
+                {
+                  "title":"Hi",
+                  "subtitle":"We\'ve got the right hat for everyone.",
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"Request a Quote",
+                      "payload":"request_a_quote"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Build me a Bot",
+                      "payload":"build_me_a_bot"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Something Else",
+                      "payload":"somethine_else"
+                    },
+                  ]
                 }
-            };
-
-            sendMessage(recipientId, message);
-
-            return true;
-        }
+              ]
+            }
+          }
+      };
+      sendMessage(recipientId, message);
     }
-
-    return false;
-
-};
-
+}
 function sayThanks(recipientId, rtext){
   if(rtext == 'I like this'){
     message = {text : "Super, Thanks for that. Someone will be in touch with you real soon to discuss with you. What else can i help you with today?"};
