@@ -33,7 +33,7 @@ app.post('/webhook', function (req, res) {
                 sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         } else if (event.postback) {
             mainMenu(event.sender.id, event.postback.payload);
-            sayThanks(event.sender.id, event.postback.payload);
+            requestAQuote(event.sender.id, event.postback.payload);
             console.log("Postback received: " + JSON.stringify(event.postback));
         }
     }
@@ -63,15 +63,28 @@ function getUserInfo(recipientId){
   var userInfo = null;
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
     console.log(body);
-    console.log(response);
+    //console.log(response);
     userInfo = body;
   });
   return userInfo;
 }
 
+
+
 function mainMenu(recipientId, rtext){
     if(rtext == 'SOCIALIZE_VA_STARTER'){
-      $userInfo = getUserInfo(recipientId);
+      var userInfo = getUserInfo(recipientId);
+      if(typeof userInfo.first_name != "undefined"
+            && typeof userInfo.last_name != "undefined" ){
+        var welcomeText = "Hi "+userInfo.first_name+" "+userInfo.last_name;
+        welcomeText += "Welcome to Socialize virtual assistant.";
+        welcomeText += "How can i help you today?";
+        message = {
+                  	"text": welcomeText
+                  }
+        sendMessage(recipientId, message);
+      }
+
       message = {
           "attachment": {
               "type": "template",
@@ -79,8 +92,6 @@ function mainMenu(recipientId, rtext){
               "template_type":"generic",
               "elements":[
                 {
-                  "title":"Hi",
-                  "subtitle":"We\'ve got the right hat for everyone.",
                   "buttons":[
                     {
                       "type":"postback",
@@ -106,9 +117,43 @@ function mainMenu(recipientId, rtext){
       sendMessage(recipientId, message);
     }
 }
-function sayThanks(recipientId, rtext){
-  if(rtext == 'I like this'){
-    message = {text : "Super, Thanks for that. Someone will be in touch with you real soon to discuss with you. What else can i help you with today?"};
-    sendMessage(recipientId, message);
-  }
+
+function requestAQuote(recipientId, rtext){
+    if(rtext == 'request_a_quote'){
+
+        var welcomeText = "Great , as a full service digital agency, ";
+        welcomeText += " we have a few services you can choose from.";
+        welcomeText += " You can even have a bot just like me :-)";
+        message = {
+                  	"text": welcomeText
+                  }
+        sendMessage(recipientId, message);
+
+
+      message = {
+          "attachment": {
+              "type": "template",
+              "payload":{
+              "template_type":"generic",
+              "elements":[
+                {
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"I want a bot like you",
+                      "payload":"bot_like_you"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Other Services",
+                      "payload":"other_services"
+                    },
+                  ]
+                }
+              ]
+            }
+          }
+      };
+      sendMessage(recipientId, message);
+    }
 }
