@@ -95,7 +95,7 @@ function mainMenu(recipientId, rtext){
               "template_type":"generic",
               "elements":[
                 {
-                  "title" : "Hi",
+                  "title" : "Welcome",
                   "buttons":[
                     {
                       "type":"postback",
@@ -141,6 +141,7 @@ function requestAQuote(recipientId, rtext){
               "template_type":"generic",
               "elements":[
                 {
+                  "title" : "Request a Quote",
                   "buttons":[
                     {
                       "type":"postback",
