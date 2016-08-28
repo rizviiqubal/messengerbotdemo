@@ -40,6 +40,17 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
+function getUserInfo(recipientId){
+  var userInfo = null;
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    console.log(body);
+    console.log(recipientId);
+    //console.log(response);
+    userInfo = body;
+  });
+  return userInfo;
+}
+
 // generic function sending messages
 function sendMessage(recipientId, message) {
     request({
@@ -59,16 +70,7 @@ function sendMessage(recipientId, message) {
     });
 };
 
-function getUserInfo(recipientId){
-  var userInfo = null;
-  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    console.log(body);
-    console.log(recipientId);
-    //console.log(response);
-    userInfo = body;
-  });
-  return userInfo;
-}
+
 
 
 
