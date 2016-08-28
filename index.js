@@ -30,13 +30,15 @@ app.post('/webhook', function (req, res) {
             sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         }*/
         console.log(event);
-        if (event.message && event.message.text) {
-                sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-        } else if (event.postback) {
-            console.log("Postback received: " + JSON.stringify(event.postback));
-            mainMenu(event.sender.id, event.postback.payload);
-            requestAQuote(event.sender.id, event.postback.payload);
-        }
+        if(event.message.is_echo != "true"){
+          if (event.message && event.message.text) {
+                  //sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
+          } else if (event.postback) {
+              console.log("Postback received: " + JSON.stringify(event.postback));
+              mainMenu(event.sender.id, event.postback.payload);
+              requestAQuote(event.sender.id, event.postback.payload);
+          }
+        }  
     }
     res.sendStatus(200);
 });
