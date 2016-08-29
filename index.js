@@ -35,7 +35,12 @@ app.post('/webhook', function (req, res) {
                 console.log(JSON.stringify(event.message.text));
               } else {
                   console.log("Question Index"+qnIndexFixed);
-                  askQnForQuote(event.sender.id,qnIndexFixed);
+                  if(qnIndexFixed < questionArray.length){
+                      askQnForQuote(event.sender.id,qnIndexFixed);
+                  } else {
+                      requestQuoteThanks(event.sender.id);
+                  }
+
               }
                   //continue;
             }
@@ -338,4 +343,40 @@ function askQnForQuote(recipientId,qnIndex){
     "text" : questionArray[qnIndex]
   }
   sendMessage(recipientId, message);
+}
+
+function sendRequestQuoteThanksMenu(recipientId){
+  var headerText = {
+    "text" : "Super.  Thanks for that.  Someone will be in touch with you real soon to discuss.  What else can I help you with today?"
+  }
+  sendMessage(recipientId, headerText);
+  var message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements" : [
+          {
+            "title":"Social Media Management",
+            "buttons":[
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              },{
+                "type":"postback",
+                "title":"Case Studies",
+                "payload":"case_studies"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  };
+  sendMessage(recipientId, message);
+}
+
+function requestQuoteThanks(recipientId){
+      sendRequestQuoteThanksMenu(recipientId);
 }
