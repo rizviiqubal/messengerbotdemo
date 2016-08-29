@@ -41,7 +41,7 @@ app.post('/webhook', function (req, res) {
               mainMenu(event.sender.id, event.postback.payload);
               requestAQuote(event.sender.id, event.postback.payload);
               otherServices(event.sender.id, event.postback.payload);
-              sendBuildMeABotMenu(event.sender.id, event.postback.payload);
+              buildMeABot(event.sender.id, event.postback.payload);
           }
 
     }
@@ -148,7 +148,7 @@ function requestAQuote(recipientId, rtext){
     }
 }
 
-function sendOtherServicesMenu($recipientId){
+function sendOtherServicesMenu(recipientId){
   var message = {
     "attachment":{
       "type":"template",
