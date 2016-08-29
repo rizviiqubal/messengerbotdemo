@@ -125,7 +125,7 @@ function sendRequestAQuoteMenu(recipientId){
                   {
                       "type":"postback",
                       "title":"I want a bot like you",
-                      "payload":"bot_like_you"
+                      "payload":"build_me_a_bot"
                   },
                   {
                       "type":"postback",
@@ -190,6 +190,44 @@ function sendOtherServicesMenu($recipientId){
                 "payload":"SOCIALIZE_VA_STARTER"
               }
             ]
+          },{
+            "title":"Socialize offers a full range of digital services. See what we offer below.",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://www.socializeagency.com/services/digital-media-buy",
+                "title":"Website Design And Development"
+              },
+              {
+                "type":"postback",
+                "title":"Request A Quote",
+                "payload":"request_a_quote_wdd"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          },{
+            "title":"Socialize offers a full range of digital services. See what we offer below.",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://www.socializeagency.com/services/digital-media-buy",
+                "title":"I want it all"
+              },
+              {
+                "type":"postback",
+                "title":"Request A Quote",
+                "payload":"request_a_quote_all"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
           }
         ]
 
@@ -201,6 +239,19 @@ function sendOtherServicesMenu($recipientId){
 
 function otherServices(recipientId, rtext){
     if(rtext == 'other_services'){
+      sendOtherServicesMenu(recipientId);
+    }
+}
+
+function sendBuildMeABotMenu(recipientId){
+  var message = {
+    "text" : "So you want a bot just like me. Flattered! Lets take down a few details so we can get started!"
+  }
+  sendMessage(recipientId, message);
+}
+
+function buildMeABot(recipientId, rtext){
+    if(rtext == 'build_me_a_bot'){
       sendOtherServicesMenu(recipientId);
     }
 }
