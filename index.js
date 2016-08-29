@@ -33,11 +33,16 @@ app.post('/webhook', function (req, res) {
               console.log("Message is echo");
               console.log(JSON.stringify(event.message.text));
               var questionArray = getArrayQuoteQuestions();
+              var isInArray = false;
+              console.log(event.message.text);
+              console.log(questionArray[0]);
+              console.log(questionArray[1]);
               /*for (var i = 0; i < questionArray.length; i++) {
                 console.log(event.message.text);
                 console.log(questionArray[i]);
                 if(event.message.text == questionArray[i]){
-                  //askQnForQuote(event.recipient.id,i+1);
+                  askQnForQuote(event.recipient.id,i+1);
+                  break;
                 }
               }*/
 
@@ -282,12 +287,15 @@ function sendQuoteFormWDDWelcome(recipientId){
 
 function sendQuoteFormAllWelcome(recipientId){
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    body = JSON.parse(body);
-    var message = {
-      "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+    if(response){
+      body = JSON.parse(body);
+      var message = {
+        "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+      }
+      sendMessage(recipientId, message);
+      askQnForQuote(recipientId,0);
     }
-    sendMessage(recipientId, message);
-    askQnForQuote(recipientId,0);
+
   });
 }
 
