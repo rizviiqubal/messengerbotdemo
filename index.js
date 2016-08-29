@@ -35,7 +35,7 @@ app.post('/webhook', function (req, res) {
               var questionArray = getArrayQuoteQuestions();
               for (var i = 0; i < questionArray.length; i++) {
                 if(event.message.text == questionArray[i]){
-                  askQnForQuote(event.recipient.id,i+1);
+                  //askQnForQuote(event.recipient.id,i+1);
                 }
               }
 
