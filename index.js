@@ -31,14 +31,14 @@ app.post('/webhook', function (req, res) {
             console.log(JSON.stringify(event.message.text));
             if(event.message.is_echo){
               console.log("Message is echo");
-              //console.log(JSON.stringify(event.message.text);
-              /*var questionArray = getArrayQuoteQuestions();
+              console.log(JSON.stringify(event.message.text);
+              var questionArray = getArrayQuoteQuestions();
               for (var i = 0; i < questionArray.length; i++) {
                 if(event.message.text.localeCompare(questionArray[i])){
                   askQnForQuote(event.sender.id,i+1);
                   console.log("Entered Loop"+i);
                 }
-              }*/
+              }
 
               //continue;
             }
@@ -332,7 +332,7 @@ function getArrayQuoteQuestions(){
 function askQnForQuote(recipientId,qnIndex){
   var questionArray = getArrayQuoteQuestions();
   var message = {
-    "text" : questionArray[qnIndex];
+    "text" : questionArray[qnIndex]
   }
   sendMessage(recipientId, message);
 }
