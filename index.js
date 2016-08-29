@@ -34,7 +34,8 @@ app.post('/webhook', function (req, res) {
                 console.log("Message is echo");
                 console.log(JSON.stringify(event.message.text));
               } else {
-                  askQnForQuote(event.recipient.id,qnIndexFixed);
+                  console.log("Question Index"+qnIndexFixed);
+                  askQnForQuote(event.sender.id,qnIndexFixed);
               }
                   //continue;
             }
