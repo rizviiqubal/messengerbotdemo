@@ -647,7 +647,7 @@ function sendMeetTheTeamMenu(recipientId){
         "elements" : [
           {
             "title":"Akanksha",
-            "subtitle": "Managing Director"
+            "subtitle": "Managing Director",
             "buttons":[
               {
                 "type":"web_url",
@@ -678,7 +678,7 @@ function sendMeetTheTeamMenu(recipientId){
           },
           {
             "title":"Aurelian",
-            "subtitle": "Account Director"
+            "subtitle": "Account Director",
             "buttons":[
               {
                 "type":"web_url",
