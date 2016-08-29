@@ -242,7 +242,7 @@ function otherServices(recipientId, rtext){
 
 function sendQuoteFormBuildMeABotWelcome(recipientId){
   var message = {
-    "text" : "So you want a bot just like me. Flattered! Lets take down a few details so we can get started!"
+    "text" : "So you want a bot just like me. Flattered! Lets take down a few details so we can get started! What is the name of your brand?"
   }
   sendMessage(recipientId, message);
   askQnForQuote(recipientId,0);
@@ -250,47 +250,52 @@ function sendQuoteFormBuildMeABotWelcome(recipientId){
 
 function sendQuoteFormSMWelcome(recipientId){
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    body = JSON.parse(body);
-    var message = {
-      "text" : "So you're interested in Social Media Management "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+    if(response){
+      body = JSON.parse(body);
+      var message = {
+        "text" : "So you're interested in Social Media Management "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
+      }
+      sendMessage(recipientId, message);
+      askQnForQuote(recipientId,0);
     }
-    sendMessage(recipientId, message);
-    askQnForQuote(recipientId,0);
   });
 }
 
 function sendQuoteFormMBWelcome(recipientId){
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    body = JSON.parse(body);
-    var message = {
-      "text" : "So you're interested in Digital Media Buying "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
-    }
-    sendMessage(recipientId, message);
-    askQnForQuote(recipientId,0);
+  if(response){
+      body = JSON.parse(body);
+      var message = {
+        "text" : "So you're interested in Digital Media Buying "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
+      }
+      sendMessage(recipientId, message);
+      askQnForQuote(recipientId,0);
+  }
   });
 }
 
 function sendQuoteFormWDDWelcome(recipientId){
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    body = JSON.parse(body);
-    var message = {
-      "text" : "So you're interested in a new website "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+  if(response){
+      body = JSON.parse(body);
+      var message = {
+        "text" : "So you're interested in a new website "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
+      }
+      sendMessage(recipientId, message);
+      askQnForQuote(recipientId,0);
     }
-    sendMessage(recipientId, message);
-    askQnForQuote(recipientId,0);
   });
 }
 
 function sendQuoteFormAllWelcome(recipientId){
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
     if(response){
-      askQnForQuote(recipientId,0);
       body = JSON.parse(body);
       var message = {
-        "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+        "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
       }
       sendMessage(recipientId, message);
-
+      askQnForQuote(recipientId,0);
     }
 
   });
@@ -330,7 +335,6 @@ function sendQuoteForm(recipientId, rtext){
 
 function getArrayQuoteQuestions(){
   var qns = [];
-  qns.push("What is the name of your brand?");
   qns.push("Thanks can you tell me where you are located?");
   qns.push("Great. Please share your email address with me?");
   qns.push("What is the best phone number to reach you?");
