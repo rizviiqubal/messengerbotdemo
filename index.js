@@ -37,6 +37,7 @@ app.post('/webhook', function (req, res) {
                   console.log("Question Index"+qnIndexFixed);
                   var questionArray = getArrayQuoteQuestions();
                   if(qnIndexFixed < questionArray.length){
+                      qnIndexFixed++;
                       askQnForQuote(event.sender.id,qnIndexFixed);
                   } else {
                       requestQuoteThanks(event.sender.id);
@@ -338,18 +339,11 @@ function getArrayQuoteQuestions(){
 }
 
 function askQnForQuote(recipientId,qnIndex){
-
-  setTimeout(function() {
-    console.log('delay execution for testing');
-  }, 3000);
-
   var questionArray = getArrayQuoteQuestions();
   var message = {
     "text" : questionArray[qnIndex]
   }
-  qnIndexFixed++;
   sendMessage(recipientId, message);
-
 }
 
 function sendRequestQuoteThanksMenu(recipientId){
