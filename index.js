@@ -630,7 +630,7 @@ function sendJoinUsMenu(recipientId){
 
 function joinUs(recipientId, rtext){
     if(rtext == 'join_us'){
-      sendHireUsMenu(recipientId);
+      sendJoinUsMenu(recipientId);
     }
 }
 
