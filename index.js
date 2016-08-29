@@ -53,6 +53,10 @@ app.post('/webhook', function (req, res) {
               requestAQuote(event.sender.id, event.postback.payload);
               otherServices(event.sender.id, event.postback.payload);
               sendQuoteForm(event.sender.id, event.postback.payload);
+              somethingElse(event.sender.id, event.postback.payload);
+              hireUs(event.sender.id, event.postback.payload);
+              ourClients(event.sender.id, event.postback.payload);
+              caseStudies(event.sender.id, event.postback.payload);
           }
 
     }
@@ -295,7 +299,7 @@ function sendQuoteFormAllWelcome(recipientId){
         "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
       }
       sendMessage(recipientId, message);
-      
+
     }
 
   });
@@ -384,4 +388,200 @@ function sendRequestQuoteThanksMenu(recipientId){
 
 function requestQuoteThanks(recipientId){
       sendRequestQuoteThanksMenu(recipientId);
+}
+
+function sendSomethingElseMenu(recipientId){
+
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var welcomeText = "Hi "+body.first_name+" ";
+    welcomeText += "So you are looking for something else. Choose from the below!";
+    var message = {
+        "attachment": {
+            "type": "template",
+            "payload":{
+              "template_type":"button",
+              "text" : welcomeText,
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"Hire Us",
+                      "payload":"hire_us"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Join Us",
+                      "payload":"join_us"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"All the news",
+                      "payload":"all_the_news"
+                    }
+            ]
+          }
+        }
+    };
+    sendMessage(recipientId, message);
+  });
+
+}
+
+function somethingElse(recipientId, rtext){
+    if(rtext == 'somethine_else'){
+      sendSomethingElseMenu(recipientId);
+    }
+}
+
+function sendHireUsMenu(recipientId){
+
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var welcomeText = "Hi "+body.first_name+" ";
+    welcomeText += "If you are looking for the best boutique agency in the region, you are in the right place.";
+    var message = {
+        "attachment": {
+            "type": "template",
+            "payload":{
+              "template_type":"button",
+              "text" : welcomeText,
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"Our Services",
+                      "payload":"other_services"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Our Clients",
+                      "payload":"our_clients"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Case Studies",
+                      "payload":"case_studies"
+                    }
+            ]
+          }
+        }
+    };
+    sendMessage(recipientId, message);
+  });
+
+}
+
+function hireUs(recipientId, rtext){
+    if(rtext == 'hire_us'){
+      sendHireUsMenu(recipientId);
+    }
+}
+
+function sendOurClientsMenu(recipientId){
+
+
+  var  welcomeText = "We are so proud to call this bunch our clients!";
+    var message = {
+        "attachment": {
+            "type": "template",
+            "payload":{
+              "template_type":"generic",
+              "elements":[
+                {
+                  "title":welcomeText,
+                  "image_url":"https://dl.dropboxusercontent.com/u/1312609/clients.png",
+
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"Case Studies",
+                      "payload":"case_studies"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Our Services",
+                      "payload":"other_services"
+                    }
+                  ]
+                }
+              ]
+            }
+        }
+    };
+    sendMessage(recipientId, message);
+
+
+}
+
+function ourClients(recipientId, rtext){
+    if(rtext == 'our_clients'){
+      sendOurClientsMenu(recipientId);
+    }
+}
+
+
+function sendCaseStudiesMenu(recipientId){
+  var headerText = {
+    "text" : "Want to see our awesome work?  Check out our case studies below"
+  }
+  sendMessage(recipientId, headerText);
+  var message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements" : [
+          {
+            "title":"Mercedes Case Study",
+            "buttons":[
+              {
+                "type":"postback",
+                "title":"Request A Quote",
+                "payload":"other_services"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          },{
+            "title":"Tip And Toes Case Study",
+            "buttons":[
+              {
+                "type":"postback",
+                "title":"Request A Quote",
+                "payload":"other_services"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          },{
+            "title":"Switz Case Study ",
+            "buttons":[
+              {
+                "type":"postback",
+                "title":"Request A Quote",
+                "payload":"other_services"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  };
+  sendMessage(recipientId, message);
+}
+
+function caseStudies(recipientId, rtext){
+    if(rtext == 'case_studies'){
+      sendCaseStudiesMenu(recipientId);
+    }
 }
