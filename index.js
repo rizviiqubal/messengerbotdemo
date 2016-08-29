@@ -338,15 +338,18 @@ function getArrayQuoteQuestions(){
 }
 
 function askQnForQuote(recipientId,qnIndex){
-  qnIndexFixed++;
+
   setTimeout(function() {
     console.log('delay execution for testing');
   }, 3000);
+
   var questionArray = getArrayQuoteQuestions();
   var message = {
     "text" : questionArray[qnIndex]
   }
+  qnIndexFixed++;
   sendMessage(recipientId, message);
+
 }
 
 function sendRequestQuoteThanksMenu(recipientId){
