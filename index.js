@@ -31,6 +31,14 @@ app.post('/webhook', function (req, res) {
             console.log(JSON.stringify(event.text));
             if(event.message.is_echo){
               console.log("Message is echo");
+              console.log(JSON.stringify(event.message.text);
+              var questionArray = getArrayQuoteQuestions();
+              for (var i = 0; i < questionArray.length; i++) {
+                if(event.message.text.localeCompare(questionArray[i])){
+                  askQnForQuote(event.sender.id,i+1);
+                }
+              }
+
               //continue;
             }
 
@@ -277,48 +285,53 @@ function sendQuoteFormAllWelcome(recipientId){
 }
 
 function sendQuoteForm(recipientId, rtext){
+  var isQuoteRequested = false;
   if(rtext == 'request_a_quote_bot'){
     sendQuoteFormBuildMeABotWelcome(recipientId);
+    isQuoteRequested = true;
   }
 
   if(rtext == "request_a_quote_sm"){
     sendQuoteFormSMWelcome(recipientId);
+    isQuoteRequested = true;
   }
 
   if(rtext == "request_a_quote_mb"){
     sendQuoteFormMBWelcome(recipientId);
+    isQuoteRequested = true;
   }
 
   if(rtext == "request_a_quote_wdd"){
     sendQuoteFormWDDWelcome(recipientId);
+    isQuoteRequested = true;
   }
 
   if(rtext == "request_a_quote_all"){
     sendQuoteFormAllWelcome(recipientId);
+    isQuoteRequested = true;
   }
 
-  var message = {
-    "text" : "What is the name of your brand?"
-  }
-  sendMessage(recipientId, message);
+ if(isQuoteRequested){
+   askQnForQuote(recipientId,0);
+ }
 
-  var message = {
-    "text" : "Thanks can you tell me where you are located?"
-  }
-  sendMessage(recipientId, message);
 
-  var message = {
-    "text" : "Great. Please share your email address with me?"
-  }
-  sendMessage(recipientId, message);
+}
 
-  var message = {
-    "text" : "What is the best phone number to reach you?"
-  }
-  sendMessage(recipientId, message);
+function getArrayQuoteQuestions(){
+  var qns = [];
+  qns.push("What is the name of your brand?");
+  qns.push("Thanks can you tell me where you are located?");
+  qns.push("Great. Please share your email address with me?");
+  qns.push("What is the best phone number to reach you?");
+  qns.push("If you want to leave a message for our team then you can add that now!");
+  return qns;
+}
 
+function askQnForQuote(recipientId,qnIndex){
+  var questionArray = getArrayQuoteQuestions();
   var message = {
-    "text" : "if you want to leave a message for our team then you can add that now!"
+    "text" : questionArray[qnIndex];
   }
   sendMessage(recipientId, message);
 }
