@@ -38,6 +38,7 @@ app.post('/webhook', function (req, res) {
               console.log("Has Postback:"+JSON.stringify(event.postback));
               mainMenu(event.sender.id, event.postback.payload);
               requestAQuote(event.sender.id, event.postback.payload);
+              otherServices(event.sender.id, event.postback.payload);
           }
 
     }
