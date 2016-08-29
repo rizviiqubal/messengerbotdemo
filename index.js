@@ -662,7 +662,7 @@ function sendMeetTheTeamMenu(recipientId){
             ]
           },{
             "title":"Leah",
-            "subtitle": "Account Director"
+            "subtitle": "Account Director",
             "buttons":[
               {
                 "type":"web_url",
