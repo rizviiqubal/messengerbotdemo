@@ -57,6 +57,9 @@ app.post('/webhook', function (req, res) {
               hireUs(event.sender.id, event.postback.payload);
               ourClients(event.sender.id, event.postback.payload);
               caseStudies(event.sender.id, event.postback.payload);
+              joinUs(event.sender.id, event.postback.payload);
+              meetTheTeam(event.sender.id, event.postback.payload);
+              openPositions(event.sender.id, event.postback.payload);
           }
 
     }
@@ -111,7 +114,7 @@ function sendMainMenu(recipientId){
                     {
                       "type":"postback",
                       "title":"Something Else",
-                      "payload":"somethine_else"
+                      "payload":"something_else"
                     }
             ]
           }
@@ -428,7 +431,7 @@ function sendSomethingElseMenu(recipientId){
 }
 
 function somethingElse(recipientId, rtext){
-    if(rtext == 'somethine_else'){
+    if(rtext == 'something_else'){
       sendSomethingElseMenu(recipientId);
     }
 }
@@ -583,5 +586,193 @@ function sendCaseStudiesMenu(recipientId){
 function caseStudies(recipientId, rtext){
     if(rtext == 'case_studies'){
       sendCaseStudiesMenu(recipientId);
+    }
+}
+
+
+function sendJoinUsMenu(recipientId){
+
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var welcomeText = "Hi "+body.first_name+" ";
+    welcomeText += "Interested in joining out team? Find out more about us here";
+    var message = {
+        "attachment": {
+            "type": "template",
+            "payload":{
+              "template_type":"button",
+              "text" : welcomeText,
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"Open Positons",
+                      "payload":"open_positions"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Meet the Team ",
+                      "payload":"meet_the_team"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Something Else",
+                      "payload":"something_else"
+                    }
+            ]
+          }
+        }
+    };
+    sendMessage(recipientId, message);
+  });
+
+}
+
+function joinUs(recipientId, rtext){
+    if(rtext == 'join_us'){
+      sendHireUsMenu(recipientId);
+    }
+}
+
+
+function sendMeetTheTeamMenu(recipientId){
+  var headerText = {
+    "text" : "So, you've heard about our awesome team! Meet our talented directors.."
+  }
+  sendMessage(recipientId, headerText);
+  var message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements" : [
+          {
+            "title":"Akanksha",
+            "subtitle": "Managing Director"
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://www.linkedin.com",
+                "title":"View Website"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          },{
+            "title":"Leah",
+            "subtitle": "Account Director"
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://www.linkedin.com",
+                "title":"View Website"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          },
+          {
+            "title":"Aurelian",
+            "subtitle": "Account Director"
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://www.linkedin.com",
+                "title":"View Website"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  };
+  sendMessage(recipientId, message);
+}
+
+function meetTheTeam(recipientId, rtext){
+    if(rtext == 'meet_the_team'){
+      sendMeetTheTeamMenu(recipientId);
+    }
+}
+
+
+function sendOpenPositionsMenu(recipientId){
+  var headerText = {
+    "text" : "We have some super exciting positions. Take a look and send us your CV."
+  }
+  sendMessage(recipientId, headerText);
+  var message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements" : [
+          {
+            "title":"Account Manager",
+            "subtitle": "Dubai"
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://socialize.bamboohr.co.uk/jobs/",
+                "title":"View Website"
+              },
+              {
+                "type":"postback",
+                "title":"Meet the Team",
+                "payload":"meet_the_team"
+              }
+            ]
+          },{
+            "title":"Digital Media Planner Manager",
+            "subtitle": "Dubai"
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://socialize.bamboohr.co.uk/jobs/",
+                "title":"View Website"
+              },
+              {
+                "type":"postback",
+                "title":"Meet the Team",
+                "payload":"meet_the_team"
+              }
+            ]
+          },
+          {
+            "title":"Creative Designer",
+            "subtitle": "Dubai"
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"https://socialize.bamboohr.co.uk/jobs/",
+                "title":"View Website"
+              },
+              {
+                "type":"postback",
+                "title":"Meet the Team",
+                "payload":"meet_the_team"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  };
+  sendMessage(recipientId, message);
+}
+
+function openPositions(recipientId, rtext){
+    if(rtext == 'open_positions'){
+      sendOpenPositionsMenu(recipientId);
     }
 }
