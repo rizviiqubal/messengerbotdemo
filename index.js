@@ -44,21 +44,7 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
-function sendWelcomeMessage(recipientId,message){
 
-  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    body = JSON.parse(body);
-    console.log("Inside Request: recver first name"+body.first_name);
-    var welcomeText = "Hi "+body.first_name+" ";
-    welcomeText += "Welcome to Socialize virtual assistant.";
-    welcomeText += "How can i help you today?";
-    message = {
-                "text": welcomeText
-              };
-      sendMessage(recipientId, message);
-  });
-
-}
 
 // generic function sending messages
 function sendMessage(recipientId, message) {
@@ -79,22 +65,19 @@ function sendMessage(recipientId, message) {
     });
 };
 
+function sendMainMenu(recipientId){
 
-
-
-
-function mainMenu(recipientId, rtext){
-    if(rtext == 'SOCIALIZE_VA_STARTER'){
-
-      sendWelcomeMessage(recipientId);
-      message = {
-          "attachment": {
-              "type": "template",
-              "payload":{
-              "template_type":"generic",
-              "elements":[
-                {
-                  "title" : "Welcome",
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var welcomeText = "Hi "+body.first_name+" ";
+    welcomeText += "Welcome to Socialize virtual assistant.";
+    welcomeText += "How can i help you today?";
+    var message = {
+        "attachment": {
+            "type": "template",
+            "payload":{
+              "template_type":"button",
+              "text" : welcomeText,
                   "buttons":[
                     {
                       "type":"postback",
@@ -110,54 +93,96 @@ function mainMenu(recipientId, rtext){
                       "type":"postback",
                       "title":"Something Else",
                       "payload":"somethine_else"
-                    },
-                  ]
-                }
-              ]
+                    }
+            ]
+          }
+        }
+    };
+    sendMessage(recipientId, message);
+  });
+
+}
+
+function mainMenu(recipientId, rtext){
+    if(rtext == 'SOCIALIZE_VA_STARTER'){
+      sendMainMenu(recipientId);
+    }
+}
+
+function sendRequestAQuoteMenu(recipientId){
+  var headText = "Great , as a full service digital agency, ";
+  headText += " we have a few services you can choose from.";
+  headText += " You can even have a bot just like me :-)";
+
+      var message = {
+          "attachment": {
+              "type": "template",
+              "payload":{
+              "template_type":"button",
+              "text" : headText,
+              "buttons":[
+                  {
+                      "type":"postback",
+                      "title":"I want a bot like you",
+                      "payload":"bot_like_you"
+                  },
+                  {
+                      "type":"postback",
+                      "title":"Other Services",
+                      "payload":"other_services"
+                  },
+                ]
             }
           }
       };
       sendMessage(recipientId, message);
-    }
 }
 
 function requestAQuote(recipientId, rtext){
     if(rtext == 'request_a_quote'){
+        sendRequestAQuoteMenu(recipientId)
+    }
+}
 
-        var welcomeText = "Great , as a full service digital agency, ";
-        welcomeText += " we have a few services you can choose from.";
-        welcomeText += " You can even have a bot just like me :-)";
-        message = {
-                  	"text": welcomeText
-                  }
-        sendMessage(recipientId, message);
+function sendOtherServicesMenu($recipientId){
+  var message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements" : [
+          {
+            "title":"Socialize offers a full range of digital services. See what we offer below.",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://www.socializeagency.com/services/social-media-management",
+                "title":"Social Media Management"
+              },
+              {
+                "type":"postback",
+                "title":"Request A Quote",
+                "payload":"request_a_quote_sm"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          },{
 
-
-      message = {
-          "attachment": {
-              "type": "template",
-              "payload":{
-              "template_type":"generic",
-              "elements":[
-                {
-                  "title" : "Request a Quote",
-                  "buttons":[
-                    {
-                      "type":"postback",
-                      "title":"I want a bot like you",
-                      "payload":"bot_like_you"
-                    },
-                    {
-                      "type":"postback",
-                      "title":"Other Services",
-                      "payload":"other_services"
-                    },
-                  ]
-                }
-              ]
-            }
           }
-      };
-      sendMessage(recipientId, message);
+        ]
+
+      }
+    }
+  };
+  sendMessage(recipientId, message);
+}
+
+function otherServices(recipientId, rtext){
+    if(rtext == 'other_services'){
+      sendOtherServicesMenu(recipientId);
     }
 }
