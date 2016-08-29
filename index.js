@@ -29,13 +29,19 @@ app.post('/webhook', function (req, res) {
         /*if (event.message && event.message.text) {
             sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
         }*/
+          if(event.message.is_echo){
+            console.log("Message is echo");
+            continue;
+          }
           console.log("Event:"+JSON.stringify(event));
-          console.log("Message:"+JSON.stringify(event.message));
-          console.log("Postback:"+JSON.stringify(event.postback));
+
+
+
           if (event.message && event.message.text) {
                   //sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
           }
-          if (event.postback) {
+          if (event.postback && event.postback.payload) {
+              console.log("Has Postback:"+JSON.stringify(event.postback));
               mainMenu(event.sender.id, event.postback.payload);
               requestAQuote(event.sender.id, event.postback.payload);
           }
@@ -44,16 +50,23 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
-function getUserInfo(recipientId){
-  var userInfo = null;
+function sendWelcomeText(recipientId,message){
+
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
     console.log("Inside Request: Response body"+body);
     console.log("Inside Request: Response"+response);
     console.log("Inside Request: recver id"+recipientId);
+    body = JSON.parse(body);
     console.log("Inside Request: recver first name"+body.first_name);
-    return body;
+    var welcomeText = "Hi ";
+    welcomeText += "Welcome to Socialize virtual assistant.";
+    welcomeText += "How can i help you today?";
+    message = {
+                "text": welcomeText
+              };
+      sendMessage(recipientId, message);
   });
-  return userInfo;
+
 }
 
 // generic function sending messages
@@ -81,18 +94,8 @@ function sendMessage(recipientId, message) {
 
 function mainMenu(recipientId, rtext){
     if(rtext == 'SOCIALIZE_VA_STARTER'){
-      var userInfo = getUserInfo(recipientId);
-      console.log("UserInfo in Main Menu"+userInfo);
 
-        var welcomeText = "Hi ";
-        welcomeText += "Welcome to Socialize virtual assistant.";
-        welcomeText += "How can i help you today?";
-        message = {
-                  	"text": welcomeText
-                  }
-        sendMessage(recipientId, message);
-
-
+      sendWelcomeText(recipientId);
       message = {
           "attachment": {
               "type": "template",
