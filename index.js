@@ -252,6 +252,6 @@ function sendBuildMeABotMenu(recipientId){
 
 function buildMeABot(recipientId, rtext){
     if(rtext == 'build_me_a_bot'){
-      sendOtherServicesMenu(recipientId);
+      sendBuildMeABotMenu(recipientId);
     }
 }
