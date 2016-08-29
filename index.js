@@ -865,7 +865,7 @@ function sendSocializeWinsMenu(recipientId){
                 "payload":"SOCIALIZE_VA_STARTER"
               }
             ]
-          }{
+          },{
             "title":"#Socializewins",
             "subtitle": "Betty Crocker",
             "buttons":[
@@ -880,7 +880,7 @@ function sendSocializeWinsMenu(recipientId){
                 "payload":"SOCIALIZE_VA_STARTER"
               }
             ]
-          }{
+          },{
             "title":"#Socializewins",
             "subtitle": "Auto Desk",
             "buttons":[
@@ -895,7 +895,7 @@ function sendSocializeWinsMenu(recipientId){
                 "payload":"SOCIALIZE_VA_STARTER"
               }
             ]
-          }{
+          },{
             "title":"#Socializewins",
             "subtitle": "Shukran",
             "buttons":[
