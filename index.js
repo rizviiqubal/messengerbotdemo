@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+var qnIndexFixed = 0;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -33,22 +34,7 @@ app.post('/webhook', function (req, res) {
                 console.log("Message is echo");
                 console.log(JSON.stringify(event.message.text));
               } else {
-                var questionArray = getArrayQuoteQuestions();
-                var isInArray = false;
-                console.log(event.message.text);
-                console.log(questionArray[0]);
-                console.log(questionArray[1]);
-                if(questionArray[0] ==event.message.text){
-                  askQnForQuote(event.recipient.id,1);
-                }
-                /*for (var i = 0; i < questionArray.length; i++) {
-                  console.log(event.message.text);
-                  console.log(questionArray[i]);
-                  if(event.message.text == questionArray[i]){
-                    askQnForQuote(event.recipient.id,i+1);
-                    break;
-                  }
-                }*/
+                  askQnForQuote(event.recipient.id,qnIndexFixed);
               }
                   //continue;
             }
@@ -328,6 +314,9 @@ function sendQuoteForm(recipientId, rtext){
     sendQuoteFormAllWelcome(recipientId);
     isQuoteRequested = true;
   }
+  if(isQuoteRequested){
+    qnIndexFixed = 0;
+  }
 
 }
 
@@ -342,6 +331,7 @@ function getArrayQuoteQuestions(){
 }
 
 function askQnForQuote(recipientId,qnIndex){
+  qnIndexFixed++;
   var questionArray = getArrayQuoteQuestions();
   var message = {
     "text" : questionArray[qnIndex]
