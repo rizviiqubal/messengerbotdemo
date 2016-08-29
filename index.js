@@ -53,8 +53,6 @@ app.post('/webhook', function (req, res) {
                   //continue;
             }
 
-                  //sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-          }
           if (event.postback && event.postback.payload) {
               console.log("Has Postback:"+JSON.stringify(event.postback));
               mainMenu(event.sender.id, event.postback.payload);
