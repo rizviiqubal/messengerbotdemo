@@ -61,6 +61,7 @@ app.post('/webhook', function (req, res) {
               meetTheTeam(event.sender.id, event.postback.payload);
               openPositions(event.sender.id, event.postback.payload);
               allTheNews(event.sender.id, event.postback.payload);
+              socializeWins(event.sender.id, event.postback.payload);
           }
 
     }
@@ -653,7 +654,7 @@ function sendMeetTheTeamMenu(recipientId){
               {
                 "type":"web_url",
                 "url":"https://www.linkedin.com",
-                "title":"View Website"
+                "title":"Connect On Linkedin"
               },
               {
                 "type":"postback",
@@ -668,7 +669,7 @@ function sendMeetTheTeamMenu(recipientId){
               {
                 "type":"web_url",
                 "url":"https://www.linkedin.com",
-                "title":"View Website"
+                "title":"Connect On Linkedin"
               },
               {
                 "type":"postback",
@@ -684,7 +685,7 @@ function sendMeetTheTeamMenu(recipientId){
               {
                 "type":"web_url",
                 "url":"https://www.linkedin.com",
-                "title":"View Website"
+                "title":"Connect On Linkedin"
               },
               {
                 "type":"postback",
@@ -725,7 +726,7 @@ function sendOpenPositionsMenu(recipientId){
               {
                 "type":"web_url",
                 "url":"https://socialize.bamboohr.co.uk/jobs/",
-                "title":"View Website"
+                "title":"Apply Now"
               },
               {
                 "type":"postback",
@@ -740,7 +741,7 @@ function sendOpenPositionsMenu(recipientId){
               {
                 "type":"web_url",
                 "url":"https://socialize.bamboohr.co.uk/jobs/",
-                "title":"View Website"
+                "title":"Apply Now"
               },
               {
                 "type":"postback",
@@ -756,7 +757,7 @@ function sendOpenPositionsMenu(recipientId){
               {
                 "type":"web_url",
                 "url":"https://socialize.bamboohr.co.uk/jobs/",
-                "title":"View Website"
+                "title":"Apply Now"
               },
               {
                 "type":"postback",
@@ -804,8 +805,8 @@ function sendAllTheNewsMenu(recipientId){
                     },
                     {
                       "type":"postback",
-                      "title":"socialize_instagram",
-                      "payload":"socialize_wins"
+                      "title":"Socialize Instagram",
+                      "payload":"socialize_instagram"
                     }
             ]
           }
@@ -819,5 +820,106 @@ function sendAllTheNewsMenu(recipientId){
 function allTheNews(recipientId, rtext){
     if(rtext == 'all_the_news'){
       sendAllTheNewsMenu(recipientId);
+    }
+}
+
+
+function sendSocializeWinsMenu(recipientId){
+  var headerText = {
+    "text" : "We like winning and are super proud that 2016 has already proved to be a year of big wins"
+  }
+  sendMessage(recipientId, headerText);
+  var message = {
+    "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"generic",
+        "elements" : [
+          {
+            "title":"#Socializewins",
+            "subtitle": "General Mills",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://communicateonline.me/agency/general-mills-awards-entire-portfolio-to-socialize/",
+                "title":"Link to Communicate"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          },{
+            "title":"#Socializewins",
+            "subtitle": "Kay Skin Clinic",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://communicateonline.me/agency/scialize-wins-kaya-skincare-account/",
+                "title":"Link to Communicate"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          }{
+            "title":"#Socializewins",
+            "subtitle": "Betty Crocker",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://communicateonline.me/agency/socialize-wins-betty-crocker-account/",
+                "title":"Link to Communicate"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          }{
+            "title":"#Socializewins",
+            "subtitle": "Auto Desk",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://www.socializeagency.com/case-studies/monopoly-at-the-mall",
+                "title":"Link to Communicate"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          }{
+            "title":"#Socializewins",
+            "subtitle": "Shukran",
+            "buttons":[
+              {
+                "type":"web_url",
+                "url":"http://www.socializeagency.com/case-studies/monopoly-at-the-mall",
+                "title":"Link to Communicate"
+              },
+              {
+                "type":"postback",
+                "title":"Main Menu",
+                "payload":"SOCIALIZE_VA_STARTER"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  };
+  sendMessage(recipientId, message);
+}
+
+function socializeWins(recipientId, rtext){
+    if(rtext == 'socialize_wins'){
+      sendSocializeWinsMenu(recipientId);
     }
 }
