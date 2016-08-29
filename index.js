@@ -28,10 +28,12 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
 
           if (event.message && event.message.text) {
+            console.log(JSON.stringify(event.message));
             if(event.message.is_echo){
               console.log("Message is echo");
               //continue;
             }
+
                   //sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
           }
           if (event.postback && event.postback.payload) {
@@ -39,6 +41,7 @@ app.post('/webhook', function (req, res) {
               mainMenu(event.sender.id, event.postback.payload);
               requestAQuote(event.sender.id, event.postback.payload);
               otherServices(event.sender.id, event.postback.payload);
+              sendBuildMeABotMenu(event.sender.id, event.postback.payload);
           }
 
     }
@@ -248,10 +251,38 @@ function sendBuildMeABotMenu(recipientId){
     "text" : "So you want a bot just like me. Flattered! Lets take down a few details so we can get started!"
   }
   sendMessage(recipientId, message);
+  sendQuoteForm(recipientId);
 }
 
 function buildMeABot(recipientId, rtext){
     if(rtext == 'build_me_a_bot'){
       sendBuildMeABotMenu(recipientId);
     }
+}
+
+function sendQuoteForm(recipientId){
+  var message = {
+    "text" : "What is the name of your brand?"
+  }
+  sendMessage(recipientId, message);
+
+  var message = {
+    "text" : "Thanks can you tell me where you are located?"
+  }
+  sendMessage(recipientId, message);
+
+  var message = {
+    "text" : "Great. Please share your email address with me?"
+  }
+  sendMessage(recipientId, message);
+
+  var message = {
+    "text" : "What is the best phone number to reach you?"
+  }
+  sendMessage(recipientId, message);
+
+  var message = {
+    "text" : "if you want to leave a message for our team then you can add that now!"
+  }
+  sendMessage(recipientId, message);
 }
