@@ -33,13 +33,13 @@ app.post('/webhook', function (req, res) {
               console.log("Message is echo");
               console.log(JSON.stringify(event.message.text));
               var questionArray = getArrayQuoteQuestions();
-              for (var i = 0; i < questionArray.length; i++) {
+              /*for (var i = 0; i < questionArray.length; i++) {
                 console.log(event.message.text);
                 console.log(questionArray[i]);
                 if(event.message.text == questionArray[i]){
                   //askQnForQuote(event.recipient.id,i+1);
                 }
-              }
+              }*/
 
               //continue;
             }
