@@ -44,15 +44,12 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
 });
 
-function sendWelcomeText(recipientId,message){
+function sendWelcomeMessage(recipientId,message){
 
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
-    console.log("Inside Request: Response body"+body);
-    console.log("Inside Request: Response"+response);
-    console.log("Inside Request: recver id"+recipientId);
     body = JSON.parse(body);
     console.log("Inside Request: recver first name"+body.first_name);
-    var welcomeText = "Hi "+body.first_name;
+    var welcomeText = "Hi "+body.first_name+" ";
     welcomeText += "Welcome to Socialize virtual assistant.";
     welcomeText += "How can i help you today?";
     message = {
@@ -89,7 +86,7 @@ function sendMessage(recipientId, message) {
 function mainMenu(recipientId, rtext){
     if(rtext == 'SOCIALIZE_VA_STARTER'){
 
-      sendWelcomeText(recipientId);
+      sendWelcomeMessage(recipientId);
       message = {
           "attachment": {
               "type": "template",
