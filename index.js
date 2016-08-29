@@ -60,6 +60,7 @@ app.post('/webhook', function (req, res) {
               joinUs(event.sender.id, event.postback.payload);
               meetTheTeam(event.sender.id, event.postback.payload);
               openPositions(event.sender.id, event.postback.payload);
+              allTheNews(event.sender.id, event.postback.payload);
           }
 
     }
@@ -719,7 +720,7 @@ function sendOpenPositionsMenu(recipientId){
         "elements" : [
           {
             "title":"Account Manager",
-            "subtitle": "Dubai"
+            "subtitle": "Dubai",
             "buttons":[
               {
                 "type":"web_url",
@@ -734,7 +735,7 @@ function sendOpenPositionsMenu(recipientId){
             ]
           },{
             "title":"Digital Media Planner Manager",
-            "subtitle": "Dubai"
+            "subtitle": "Dubai",
             "buttons":[
               {
                 "type":"web_url",
@@ -750,7 +751,7 @@ function sendOpenPositionsMenu(recipientId){
           },
           {
             "title":"Creative Designer",
-            "subtitle": "Dubai"
+            "subtitle": "Dubai",
             "buttons":[
               {
                 "type":"web_url",
@@ -774,5 +775,49 @@ function sendOpenPositionsMenu(recipientId){
 function openPositions(recipientId, rtext){
     if(rtext == 'open_positions'){
       sendOpenPositionsMenu(recipientId);
+    }
+}
+
+
+function sendAllTheNewsMenu(recipientId){
+
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var welcomeText = "Hi "+body.first_name+" ";
+    welcomeText += "We got news covered from Socialize headlines to industry updates. You can choose an option below to receive alerts about us";
+    var message = {
+        "attachment": {
+            "type": "template",
+            "payload":{
+              "template_type":"button",
+              "text" : welcomeText,
+                  "buttons":[
+                    {
+                      "type":"postback",
+                      "title":"Industry News",
+                      "payload":"industry_news"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"Socialize Wins",
+                      "payload":"socialize_wins"
+                    },
+                    {
+                      "type":"postback",
+                      "title":"socialize_instagram",
+                      "payload":"socialize_wins"
+                    }
+            ]
+          }
+        }
+    };
+    sendMessage(recipientId, message);
+  });
+
+}
+
+function allTheNews(recipientId, rtext){
+    if(rtext == 'all_the_news'){
+      sendAllTheNewsMenu(recipientId);
     }
 }
