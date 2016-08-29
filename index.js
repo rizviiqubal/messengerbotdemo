@@ -52,7 +52,7 @@ function sendWelcomeText(recipientId,message){
     console.log("Inside Request: recver id"+recipientId);
     body = JSON.parse(body);
     console.log("Inside Request: recver first name"+body.first_name);
-    var welcomeText = "Hi ";
+    var welcomeText = "Hi "+body.first_name;
     welcomeText += "Welcome to Socialize virtual assistant.";
     welcomeText += "How can i help you today?";
     message = {
