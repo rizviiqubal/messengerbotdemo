@@ -37,6 +37,9 @@ app.post('/webhook', function (req, res) {
               console.log(event.message.text);
               console.log(questionArray[0]);
               console.log(questionArray[1]);
+              if(questionArray[0] ==event.message.text){
+                askQnForQuote(event.recipient.id,1);
+              }
               /*for (var i = 0; i < questionArray.length; i++) {
                 console.log(event.message.text);
                 console.log(questionArray[i]);
@@ -288,12 +291,13 @@ function sendQuoteFormWDDWelcome(recipientId){
 function sendQuoteFormAllWelcome(recipientId){
   request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
     if(response){
+      askQnForQuote(recipientId,0);
       body = JSON.parse(body);
       var message = {
         "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
       }
       sendMessage(recipientId, message);
-      askQnForQuote(recipientId,0);
+
     }
 
   });
