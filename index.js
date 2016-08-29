@@ -149,6 +149,10 @@ function requestAQuote(recipientId, rtext){
 }
 
 function sendOtherServicesMenu(recipientId){
+  var headerText = {
+    "text" : "Socialize offers a full range of digital services. See what we offer below."
+  }
+  sendMessage(recipientId, headerText);
   var message = {
     "attachment":{
       "type":"template",
@@ -156,13 +160,8 @@ function sendOtherServicesMenu(recipientId){
         "template_type":"generic",
         "elements" : [
           {
-            "title":"Socialize offers a full range of digital services. See what we offer below.",
+            "title":"Social Media Management",
             "buttons":[
-              {
-                "type":"web_url",
-                "url":"http://www.socializeagency.com/services/social-media-management",
-                "title":"Social Media Management"
-              },
               {
                 "type":"postback",
                 "title":"Request A Quote",
@@ -175,13 +174,8 @@ function sendOtherServicesMenu(recipientId){
               }
             ]
           },{
-            "title":"Socialize offers a full range of digital services. See what we offer below.",
+            "title":"Media Buying",
             "buttons":[
-              {
-                "type":"web_url",
-                "url":"http://www.socializeagency.com/services/digital-media-buy",
-                "title":"Media Buying"
-              },
               {
                 "type":"postback",
                 "title":"Request A Quote",
@@ -194,13 +188,8 @@ function sendOtherServicesMenu(recipientId){
               }
             ]
           },{
-            "title":"Socialize offers a full range of digital services. See what we offer below.",
+            "title":"Website Design And Development",
             "buttons":[
-              {
-                "type":"web_url",
-                "url":"http://www.socializeagency.com/services/digital-media-buy",
-                "title":"Website Design And Development"
-              },
               {
                 "type":"postback",
                 "title":"Request A Quote",
@@ -213,13 +202,8 @@ function sendOtherServicesMenu(recipientId){
               }
             ]
           },{
-            "title":"Socialize offers a full range of digital services. See what we offer below.",
+            "title":"I want it all",
             "buttons":[
-              {
-                "type":"web_url",
-                "url":"http://www.socializeagency.com/services/digital-media-buy",
-                "title":"I want it all"
-              },
               {
                 "type":"postback",
                 "title":"Request A Quote",
