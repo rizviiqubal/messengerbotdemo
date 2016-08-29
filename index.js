@@ -35,7 +35,8 @@ app.post('/webhook', function (req, res) {
               var questionArray = getArrayQuoteQuestions();
               for (var i = 0; i < questionArray.length; i++) {
                 if(event.message.text.localeCompare(questionArray[i])){
-                  askQnForQuote(event.sender.id,i+1);
+                  //askQnForQuote(event.sender.id,i+1);
+                  console.log("Entered Loop"+i);
                 }
               }
 
