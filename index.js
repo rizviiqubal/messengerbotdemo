@@ -28,28 +28,29 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
           console.log(JSON.stringify(event));
           if (event.message && event.message.text) {
-            console.log(JSON.stringify(event.message.text));
-            if(event.message.is_echo){
-              console.log("Message is echo");
               console.log(JSON.stringify(event.message.text));
-              var questionArray = getArrayQuoteQuestions();
-              var isInArray = false;
-              console.log(event.message.text);
-              console.log(questionArray[0]);
-              console.log(questionArray[1]);
-              if(questionArray[0] ==event.message.text){
-                askQnForQuote(event.recipient.id,1);
-              }
-              /*for (var i = 0; i < questionArray.length; i++) {
+              if(event.message.is_echo){
+                console.log("Message is echo");
+                console.log(JSON.stringify(event.message.text));
+              } else {
+                var questionArray = getArrayQuoteQuestions();
+                var isInArray = false;
                 console.log(event.message.text);
-                console.log(questionArray[i]);
-                if(event.message.text == questionArray[i]){
-                  askQnForQuote(event.recipient.id,i+1);
-                  break;
+                console.log(questionArray[0]);
+                console.log(questionArray[1]);
+                if(questionArray[0] ==event.message.text){
+                  askQnForQuote(event.recipient.id,1);
                 }
-              }*/
-
-              //continue;
+                /*for (var i = 0; i < questionArray.length; i++) {
+                  console.log(event.message.text);
+                  console.log(questionArray[i]);
+                  if(event.message.text == questionArray[i]){
+                    askQnForQuote(event.recipient.id,i+1);
+                    break;
+                  }
+                }*/
+              }
+                  //continue;
             }
 
                   //sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
