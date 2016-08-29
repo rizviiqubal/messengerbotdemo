@@ -245,7 +245,7 @@ function sendQuoteFormBuildMeABotWelcome(recipientId){
     "text" : "So you want a bot just like me. Flattered! Lets take down a few details so we can get started! What is the name of your brand?"
   }
   sendMessage(recipientId, message);
-  askQnForQuote(recipientId,0);
+
 }
 
 function sendQuoteFormSMWelcome(recipientId){
@@ -256,7 +256,7 @@ function sendQuoteFormSMWelcome(recipientId){
         "text" : "So you're interested in Social Media Management "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
       }
       sendMessage(recipientId, message);
-      askQnForQuote(recipientId,0);
+
     }
   });
 }
@@ -269,7 +269,7 @@ function sendQuoteFormMBWelcome(recipientId){
         "text" : "So you're interested in Digital Media Buying "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
       }
       sendMessage(recipientId, message);
-      askQnForQuote(recipientId,0);
+
   }
   });
 }
@@ -282,7 +282,7 @@ function sendQuoteFormWDDWelcome(recipientId){
         "text" : "So you're interested in a new website "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
       }
       sendMessage(recipientId, message);
-      askQnForQuote(recipientId,0);
+
     }
   });
 }
@@ -295,7 +295,7 @@ function sendQuoteFormAllWelcome(recipientId){
         "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail. What is the name of your brand?"
       }
       sendMessage(recipientId, message);
-      askQnForQuote(recipientId,0);
+      
     }
 
   });
