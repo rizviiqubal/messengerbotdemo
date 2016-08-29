@@ -64,7 +64,7 @@ function sendMessage(recipientId, message) {
         if (error) {
             console.log('Error sending message: ', error);
         } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
+            console.log('Error: ', response.body);
         }
     });
 };
@@ -174,66 +174,8 @@ function sendOtherServicesMenu($recipientId){
                 "payload":"SOCIALIZE_VA_STARTER"
               }
             ]
-          },{
-            "title":"Socialize offers a full range of digital services. See what we offer below.",
-            "buttons":[
-              {
-                "type":"web_url",
-                "url":"http://www.socializeagency.com/services/digital-media-buy",
-                "title":"Media Buying"
-              },
-              {
-                "type":"postback",
-                "title":"Request A Quote",
-                "payload":"request_a_quote_mb"
-              },
-              {
-                "type":"postback",
-                "title":"Main Menu",
-                "payload":"SOCIALIZE_VA_STARTER"
-              }
-            ]
-          },{
-            "title":"Socialize offers a full range of digital services. See what we offer below.",
-            "buttons":[
-              {
-                "type":"web_url",
-                "url":"http://www.socializeagency.com/services/digital-media-buy",
-                "title":"Website Design And Development"
-              },
-              {
-                "type":"postback",
-                "title":"Request A Quote",
-                "payload":"request_a_quote_wdd"
-              },
-              {
-                "type":"postback",
-                "title":"Main Menu",
-                "payload":"SOCIALIZE_VA_STARTER"
-              }
-            ]
-          },{
-            "title":"Socialize offers a full range of digital services. See what we offer below.",
-            "buttons":[
-              {
-                "type":"web_url",
-                "url":"http://www.socializeagency.com/services/digital-media-buy",
-                "title":"I want it all"
-              },
-              {
-                "type":"postback",
-                "title":"Request A Quote",
-                "payload":"request_a_quote_all"
-              },
-              {
-                "type":"postback",
-                "title":"Main Menu",
-                "payload":"SOCIALIZE_VA_STARTER"
-              }
-            ]
           }
         ]
-
       }
     }
   };
@@ -251,7 +193,7 @@ function sendBuildMeABotMenu(recipientId){
     "text" : "So you want a bot just like me. Flattered! Lets take down a few details so we can get started!"
   }
   sendMessage(recipientId, message);
-  sendQuoteForm(recipientId);
+  //sendQuoteForm(recipientId);
 }
 
 function buildMeABot(recipientId, rtext){
