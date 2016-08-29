@@ -36,9 +36,9 @@ app.post('/webhook', function (req, res) {
               } else {
                   console.log("Question Index"+qnIndexFixed);
                   var questionArray = getArrayQuoteQuestions();
-                  if(qnIndexFixed < questionArray.length - 1){
-                      qnIndexFixed++;
+                  if(qnIndexFixed < questionArray.length){
                       askQnForQuote(event.sender.id,qnIndexFixed);
+                      qnIndexFixed++;
                   } else {
                       requestQuoteThanks(event.sender.id);
                   }
