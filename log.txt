@@ -1,0 +1,133 @@
+2016-08-28T23:56:36.864042+00:00 heroku[router]: at=info method=POST path="/webhook" host=socializevirtualassistant.herokuapp.com request_id=e27f3982-b83c-417f-b8a8-cd4f43336837 fwd="31.13.113.89" dyno=web.1 connect=0ms service=74ms status=200 bytes=196
+2016-08-28T23:56:36.807516+00:00 app[web.1]: Event:{"recipient":{"id":"1804427506437323"},"timestamp":1472428596519,"sender":{"id":"1093920853988346"},"postback":{"payload":"SOCIALIZE_VA_STARTER"}}
+2016-08-28T23:56:36.809122+00:00 app[web.1]: Message:undefined
+2016-08-28T23:56:36.809290+00:00 app[web.1]: Postback:{"payload":"SOCIALIZE_VA_STARTER"}
+2016-08-28T23:56:36.819992+00:00 app[web.1]: UserInfo in Main Menunull
+2016-08-28T23:56:37.355075+00:00 app[web.1]: Inside Request: Response body{"first_name":"Rizvi","last_name":"Iqubal","profile_pic":"https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/s200x200\/12341544_10153849450723336_2485519610867795001_n.jpg?oh=4d75fd8884bc6043d2553f049318be1a&oe=5840A155","locale":"en_US","timezone":4,"gender":"male"}
+2016-08-28T23:56:37.355279+00:00 app[web.1]: Inside Request: Response[object Object]
+2016-08-28T23:56:37.355356+00:00 app[web.1]: Inside Request: recver first nameundefined
+2016-08-28T23:56:37.905693+00:00 heroku[router]: at=info method=POST path="/webhook" host=socializevirtualassistant.herokuapp.com request_id=b046a20b-cb55-4eaa-a3e5-d4e917074244 fwd="66.220.158.120" dyno=web.1 connect=0ms service=4ms status=200 bytes=196
+2016-08-28T23:56:37.902709+00:00 app[web.1]: Event:{"sender":{"id":"1804427506437323"},"recipient":{"id":"1093920853988346"},"timestamp":1472428597413,"message":{"is_echo":true,"app_id":244356342625777,"mid":"mid.1472428597303:6d88191e9b9f94ff32","seq":139,"attachments":[{"title":"Welcome","url":null,"type":"template","payload":{"template_type":"generic","sharable":false,"elements":[{"title":"Welcome","buttons":[{"type":"postback","title":"Request a Quote","payload":"request_a_quote"},{"type":"postback","title":"Build me a Bot","payload":"build_me_a_bot"},{"type":"postback","title":"Something Else","payload":"somethine_else"}]}]}}]}}
+2016-08-28T23:56:37.902786+00:00 app[web.1]: Message:{"is_echo":true,"app_id":244356342625777,"mid":"mid.1472428597303:6d88191e9b9f94ff32","seq":139,"attachments":[{"title":"Welcome","url":null,"type":"template","payload":{"template_type":"generic","sharable":false,"elements":[{"title":"Welcome","buttons":[{"type":"postback","title":"Request a Quote","payload":"request_a_quote"},{"type":"postback","title":"Build me a Bot","payload":"build_me_a_bot"},{"type":"postback","title":"Something Else","payload":"somethine_else"}]}]}}]}
+2016-08-28T23:56:37.902844+00:00 app[web.1]: Postback:undefined
+2016-08-28T23:56:46.726358+00:00 heroku[router]: at=info method=POST path="/webhook" host=socializevirtualassistant.herokuapp.com request_id=de48b6ab-9f69-405a-a795-1533596fbefb fwd="69.63.188.118" dyno=web.1 connect=0ms service=2ms status=200 bytes=196
+2016-08-28T23:56:46.723538+00:00 app[web.1]: Event:{"sender":{"id":"1093920853988346"},"recipient":{"id":"1804427506437323"},"timestamp":1472428598176,"read":{"watermark":1472428597413,"seq":140}}
+2016-08-28T23:56:46.723554+00:00 app[web.1]: Message:undefined
+
+
+
+----------
+# First Msg Recvd
+Event:{
+   "recipient":{
+      "id":"1804427506437323"
+   },
+   "timestamp":1472428596519,
+   "sender":{
+      "id":"1093920853988346"
+   },
+   "postback":{
+      "payload":"SOCIALIZE_VA_STARTER"
+   }
+}
+
+ Message:undefined
+ Postback:{"payload":"SOCIALIZE_VA_STARTER"}
+ UserInfo in Main Menunull
+ Inside Request: Response body{"first_name":"Rizvi","last_name":"Iqubal","profile_pic":"https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/s200x200\/12341544_10153849450723336_2485519610867795001_n.jpg?oh=4d75fd8884bc6043d2553f049318be1a&oe=5840A155","locale":"en_US","timezone":4,"gender":"male"}
+ Inside Request: Response[object Object]
+ Inside Request: recver first nameundefined
+
+ #Second Msg Recvd
+Event:{
+"sender":{
+   "id":"1804427506437323"
+},
+"recipient":{
+   "id":"1093920853988346"
+},
+"timestamp":1472428597413,
+"message":{
+   "is_echo":true,
+   "app_id":244356342625777,
+   "mid":"mid.1472428597303:6d88191e9b9f94ff32",
+   "seq":139,
+   "attachments":[
+      {
+         "title":"Welcome",
+         "url":null,
+         "type":"template",
+         "payload":{
+            "template_type":"generic",
+            "sharable":false,
+            "elements":[
+               {
+                  "title":"Welcome",
+                  "buttons":[
+                     {
+                        "type":"postback",
+                        "title":"Request a Quote",
+                        "payload":"request_a_quote"
+                     },
+                     {
+                        "type":"postback",
+                        "title":"Build me a Bot",
+                        "payload":"build_me_a_bot"
+                     },
+                     {
+                        "type":"postback",
+                        "title":"Something Else",
+                        "payload":"somethine_else"
+                     }
+                  ]
+               }
+            ]
+         }
+      }
+   ]
+}
+}
+Message:{
+  "is_echo":true,
+  "app_id":244356342625777,
+  "mid":"mid.1472428597303:6d88191e9b9f94ff32",
+  "seq":139,
+  "attachments":[
+     {
+        "title":"Welcome",
+        "url":null,
+        "type":"template",
+        "payload":{
+           "template_type":"generic",
+           "sharable":false,
+           "elements":[
+              {
+                 "title":"Welcome",
+                 "buttons":[
+                    {
+                       "type":"postback",
+                       "title":"Request a Quote",
+                       "payload":"request_a_quote"
+                    },
+                    {
+                       "type":"postback",
+                       "title":"Build me a Bot",
+                       "payload":"build_me_a_bot"
+                    },
+                    {
+                       "type":"postback",
+                       "title":"Something Else",
+                       "payload":"somethine_else"
+                    }
+                 ]
+              }
+           ]
+        }
+     }
+  ]
+}
+ Postback:undefined
+
+ #Third Msg Recvd
+ Event:{"sender":{"id":"1093920853988346"},"recipient":{"id":"1804427506437323"},"timestamp":1472428598176,"read":{"watermark":1472428597413,"seq":140}}
+ Message:undefined

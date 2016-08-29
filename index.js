@@ -26,11 +26,12 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     for (i = 0; i < events.length; i++) {
         var event = events[i];
-          if(event.message.is_echo){
-            console.log("Message is echo");
-            //continue;
-          }
+
           if (event.message && event.message.text) {
+            if(event.message.is_echo){
+              console.log("Message is echo");
+              //continue;
+            }
                   //sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
           }
           if (event.postback && event.postback.payload) {
