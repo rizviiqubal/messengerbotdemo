@@ -41,7 +41,7 @@ app.post('/webhook', function (req, res) {
               mainMenu(event.sender.id, event.postback.payload);
               requestAQuote(event.sender.id, event.postback.payload);
               otherServices(event.sender.id, event.postback.payload);
-              buildMeABot(event.sender.id, event.postback.payload);
+              sendQuoteForm(event.sender.id, event.postback.payload);
           }
 
     }
@@ -91,7 +91,7 @@ function sendMainMenu(recipientId){
                     {
                       "type":"postback",
                       "title":"Build me a Bot",
-                      "payload":"build_me_a_bot"
+                      "payload":"request_a_quote_bot"
                     },
                     {
                       "type":"postback",
@@ -128,7 +128,7 @@ function sendRequestAQuoteMenu(recipientId){
                   {
                       "type":"postback",
                       "title":"I want a bot like you",
-                      "payload":"build_me_a_bot"
+                      "payload":"request_a_quote_bot"
                   },
                   {
                       "type":"postback",
@@ -229,21 +229,74 @@ function otherServices(recipientId, rtext){
     }
 }
 
-function sendBuildMeABotMenu(recipientId){
+function sendQuoteFormBuildMeABotWelcome(recipientId){
   var message = {
     "text" : "So you want a bot just like me. Flattered! Lets take down a few details so we can get started!"
   }
   sendMessage(recipientId, message);
-  //sendQuoteForm(recipientId);
 }
 
-function buildMeABot(recipientId, rtext){
-    if(rtext == 'build_me_a_bot'){
-      sendBuildMeABotMenu(recipientId);
+function sendQuoteFormSMWelcome(recipientId){
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var message = {
+      "text" : "So you're interested in Social Media Management "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
     }
+    sendMessage(recipientId, message);
+  });
 }
 
-function sendQuoteForm(recipientId){
+function sendQuoteFormMBWelcome(recipientId){
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var message = {
+      "text" : "So you're interested in Digital Media Buying "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+    }
+    sendMessage(recipientId, message);
+  });
+}
+
+function sendQuoteFormWDDWelcome(recipientId){
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var message = {
+      "text" : "So you're interested in a new website "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+    }
+    sendMessage(recipientId, message);
+  });
+}
+
+function sendQuoteFormAllWelcome(recipientId){
+  request("https://graph.facebook.com/v2.6/"+recipientId+"?access_token="+process.env.PAGE_ACCESS_TOKEN, function(error, response, body) {
+    body = JSON.parse(body);
+    var message = {
+      "text" : "So you need a full strategy then, "+body.first_name+". Lets take down a few details so a team member can get in touch with you to discuss in more detail."
+    }
+    sendMessage(recipientId, message);
+  });
+}
+
+function sendQuoteForm(recipientId, rtext){
+  if(rtext == 'request_a_quote_bot'){
+    sendQuoteFormBuildMeABotWelcome(recipientId);
+  }
+
+  if(rtext == "request_a_quote_sm"){
+    sendQuoteFormSMWelcome(recipientId);
+  }
+
+  if(rtext == "request_a_quote_mb"){
+    sendQuoteFormMBWelcome(recipientId);
+  }
+
+  if(rtext == "request_a_quote_wdd"){
+    sendQuoteFormWDDWelcome(recipientId);
+  }
+
+  if(rtext == "request_a_quote_all"){
+    sendQuoteFormAllWelcome(recipientId);
+  }
+
   var message = {
     "text" : "What is the name of your brand?"
   }
